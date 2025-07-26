@@ -4,6 +4,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import PrivateRoute from './Routes/PrivateRoute'
 import NotFound from './Pages/404'
+import About from './Pages/About'
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+
+        <Route path='/about' element={<PrivateRoute><About/></PrivateRoute>} />
 
         <Route path='/*' element={<NotFound />} />
       </Routes>
