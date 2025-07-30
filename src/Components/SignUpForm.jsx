@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const SignUPForm = () => {
@@ -5,7 +6,7 @@ const SignUPForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -15,14 +16,26 @@ const SignUPForm = () => {
 
         setError('');
         // onLogin({ email, password });
-        setEmail('');
-        setPassword('');
+        console.log('Signup data:', { email, password });
+
+        try {
+            const response = await axios.post('http://localhost:3000/signup', { email, password });
+            console.log(response.data);
+            alert('Signup successful', JSON.stringify(response.data));
+            setEmail('');
+            setPassword('');
+        } catch (error) {
+            alert('Error!');
+            console.error(error);
+        }
+
+
     };
 
     return (
         <form
             onSubmit={handleSubmit}
-            className="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-md space-y-6"
+            className="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-md space-y-6 text-gray-800"
         >
             <h2 className="text-2xl font-bold text-center text-gray-800">Signup</h2>
 

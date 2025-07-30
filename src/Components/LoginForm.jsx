@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const LoginForm = () => {
@@ -5,7 +6,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -14,15 +15,30 @@ const LoginForm = () => {
         }
 
         setError('');
-        // onLogin({ email, password });
-        setEmail('');
-        setPassword('');
+        try {
+            const response = await axios.post('http://localhost:3000/login', { email, password }, {
+                withCredentials : true
+            });
+            console.log(response.data);
+            // Handle successful login, e.g., redirect to dashboard or perform other actions.
+            // You can also display a success message or perform any other necessary    
+            // actions based on the response data.
+
+            alert('checking for Logged In!');
+            setEmail('');
+            setPassword('');
+
+        } catch (error) {
+            alert("error in logged in")
+        }
+
+
     };
 
     return (
         <form
             onSubmit={handleSubmit}
-            className="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-md space-y-6"
+            className="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-md space-y-6 text-gray-800"
         >
             <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
 
