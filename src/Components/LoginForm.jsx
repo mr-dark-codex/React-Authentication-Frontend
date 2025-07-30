@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ useNavigate instead of Navigate
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate(); // ✅ create navigate function
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,22 +19,20 @@ const LoginForm = () => {
         setError('');
         try {
             const response = await axios.post('http://localhost:3000/login', { email, password }, {
-                withCredentials : true
+                withCredentials: true
             });
             console.log(response.data);
-            // Handle successful login, e.g., redirect to dashboard or perform other actions.
-            // You can also display a success message or perform any other necessary    
-            // actions based on the response data.
 
-            alert('checking for Logged In!');
             setEmail('');
             setPassword('');
 
+            // ✅ Correct redirect after successful login
+            navigate('/');
+
         } catch (error) {
-            alert("error in logged in")
+            console.log(error);
+            setError('Login failed. Please try again.');
         }
-
-
     };
 
     return (
