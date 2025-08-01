@@ -5,6 +5,7 @@ import Signup from './Pages/Signup'
 import PrivateRoute from './Routes/PrivateRoute'
 import NotFound from './Pages/404'
 import About from './Pages/About'
+import MoviesList from './Pages/MoviesList'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/movies' element={<MoviesList />} />
 
 
         <Route path='/*' element={<NotFound />} />
